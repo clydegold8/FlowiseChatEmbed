@@ -461,6 +461,10 @@ button {
   cursor: default !important;
 }
 
+div.chatbot-input.border:focus {
+  border-color: #f59e0b !important;
+}
+
 .tooltip {
   position: fixed;
   background: var(--tooltip-background-color, black);
