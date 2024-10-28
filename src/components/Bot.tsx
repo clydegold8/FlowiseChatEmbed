@@ -1390,7 +1390,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
 
         {props.showTitle ? (
           <div
-            class="flex flex-row items-center w-full h-[60px] absolute top-0 left-0 z-10 rounded-xl"
+            class="flex flex-row items-center w-full h-[65px] absolute top-0 left-0 z-10 rounded-xl"
             style={{
               background: props.bubbleBackgroundColor,
               color: props.bubbleTextColor,
@@ -1532,7 +1532,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
               <For each={[...previews()]}>{(item) => <>{previewDisplay(item)}</>}</For>
             </div>
           </Show>
-          <div class="w-full px-5 pt-2 pb-1">
+          <div class="w-full px-5 pt-2 pb-1 flex">
             {isRecording() ? (
               <>
                 {recordingNotSupported() ? (

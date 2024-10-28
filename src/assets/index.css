@@ -188,9 +188,9 @@ textarea {
 
 .chatbot-button {
   color: var(--chatbot-button-color);
-  background-color: #0042da;
-  border: 1px solid #0042da;
-  border-radius: var(--chatbot-border-radius);
+  background-color: #0047ff;
+  border: 1px solid #0047ff;
+  border-radius: 8px;
 }
 
 .chatbot-button.selectable {
@@ -454,8 +454,7 @@ div[part='bot'] {
 
 div[part='button'],
 div[class='flex flex-row items-center w-full h-[50px] absolute top-0 left-0 z-10'],
-.chatbot-container,
-.rounded-lg {
+.chatbot-container {
   border-radius: 0px !important;
 }
 
@@ -465,6 +464,7 @@ button {
 
 div.chatbot-input.border {
   border: 2px solid #0047ff !important;
+  border-radius: 8px;
 }
 
 .tooltip {
