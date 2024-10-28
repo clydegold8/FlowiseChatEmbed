@@ -118,10 +118,12 @@ export const TextInput = (props: Props) => {
 
   const handleMouseEnter = () => {
     setIsHovered(true);
+    console.log('ENTER');
   };
 
   const handleMouseLeave = () => {
     setIsHovered(false);
+    console.log('LEAVE');
   };
 
   const borderColor = isHovered() ? '#f59e0b' : '#ffffff';
