@@ -25,11 +25,13 @@ export const DeleteIcon = (props: JSX.SvgSVGAttributes<SVGSVGElement>) => (
     version="1.1"
     id="Layer_1"
     xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 512 512"
+    viewBox="-51.2 -51.2 614.40 614.40"
     stroke="#ffffff"
     stroke-width="7.68"
   >
-    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g id="SVGRepo_bgCarrier" stroke-width="0">
+      <rect x="-51.2" y="-51.2" width="614.40" height="614.40" rx="307.2" fill="#1760f6"></rect>
+    </g>
     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
     <g id="SVGRepo_iconCarrier">
       <g>
