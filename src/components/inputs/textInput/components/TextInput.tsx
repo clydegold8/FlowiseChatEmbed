@@ -35,6 +35,7 @@ const defaultTextColor = '#303235';
 const defaultSendSound = 'https://cdn.jsdelivr.net/gh/FlowiseAI/FlowiseChatEmbed@latest/src/assets/send_message.mp3';
 
 export const TextInput = (props: Props) => {
+  const [isHovered, setIsHovered] = createSignal(false);
   const [isSendButtonDisabled, setIsSendButtonDisabled] = createSignal(false);
   const [warningMessage, setWarningMessage] = createSignal('');
   let inputRef: HTMLInputElement | HTMLTextAreaElement | undefined;
@@ -115,14 +116,27 @@ export const TextInput = (props: Props) => {
     return '*';
   };
 
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+  const borderColor = isHovered() ? '#f59e0b' : '#ffffff';
+
   return (
     <div
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       class="w-full h-auto max-h-[192px] min-h-[56px] flex flex-col items-end justify-between chatbot-input border border-[#eeeeee]"
       data-testid="input"
       style={{
         margin: 'auto',
         'background-color': props.backgroundColor ?? defaultBackgroundColor,
         color: props.textColor ?? defaultTextColor,
+        'border-color': borderColor,
       }}
       onKeyDown={submitWhenEnter}
     >
