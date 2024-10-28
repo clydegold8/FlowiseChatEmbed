@@ -462,7 +462,7 @@ button {
 }
 
 div.chatbot-input.border {
-  border-color: #f59e0b !important;
+  border: 2px solid #0047ff !important;
 }
 
 .tooltip {
