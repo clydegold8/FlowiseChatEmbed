@@ -206,7 +206,7 @@ export const TextInput = (props: Props) => {
         isDisabled={props.disabled || isSendButtonDisabled()}
         class="m-0 h-15 ml-5 flex items-center justify-center"
         on:click={submit}
-      ></SendButton>
+      />
     </>
   );
 };

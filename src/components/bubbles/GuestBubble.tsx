@@ -63,34 +63,42 @@ export const GuestBubble = (props: Props) => {
   return (
     <div class="flex justify-end mb-2 items-end guest-container" style={{ 'margin-left': '50px' }}>
       <div
-        class="max-w-full flex flex-col justify-center items-start chatbot-guest-bubble px-4 py-2 gap-2 mr-2"
-        data-testid="guest-bubble"
+        class="flex p-2"
         style={{
           'background-color': props.backgroundColor ?? defaultBackgroundColor,
           color: props.textColor ?? defaultTextColor,
           'border-radius': '6px',
         }}
       >
-        {props.message.fileUploads && props.message.fileUploads.length > 0 && (
-          <div class="flex flex-col items-start flex-wrap w-full gap-2">
-            <For each={props.message.fileUploads}>
-              {(item) => {
-                return renderFileUploads(item);
-              }}
-            </For>
-          </div>
-        )}
-        {props.message.message && (
-          <span
-            ref={userMessageEl}
-            class="mr-2 whitespace-pre-wrap"
-            style={{ 'font-size': props.fontSize ? `${props.fontSize}px` : `${defaultFontSize}px` }}
-          />
-        )}
+        <div
+          style={{
+            'background-color': props.backgroundColor ?? defaultBackgroundColor,
+            color: props.textColor ?? defaultTextColor,
+          }}
+          class="max-w-full flex flex-col justify-center items-start chatbot-guest-bubble px-4 py-2 gap-2 mr-2"
+          data-testid="guest-bubble"
+        >
+          {props.message.fileUploads && props.message.fileUploads.length > 0 && (
+            <div class="flex flex-col items-start flex-wrap w-full gap-2">
+              <For each={props.message.fileUploads}>
+                {(item) => {
+                  return renderFileUploads(item);
+                }}
+              </For>
+            </div>
+          )}
+          {props.message.message && (
+            <span
+              ref={userMessageEl}
+              class="mr-2 whitespace-pre-wrap"
+              style={{ 'font-size': props.fontSize ? `${props.fontSize}px` : `${defaultFontSize}px` }}
+            />
+          )}
+        </div>
+        <Show when={props.showAvatar}>
+          <Avatar initialAvatarSrc={props.avatarSrc} />
+        </Show>
       </div>
-      <Show when={props.showAvatar}>
-        <Avatar initialAvatarSrc={props.avatarSrc} />
-      </Show>
     </div>
   );
 };

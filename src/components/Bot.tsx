@@ -1484,7 +1484,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
                         setLeadEmail={setLeadEmail}
                       />
                     )}
-                    {message.type === 'userMessage' && loading() && index() === messages().length - 1 && <LoadingBubble />}
+                    {/* {message.type === 'userMessage' && loading() && index() === messages().length - 1 && <LoadingBubble />} */}
                     {message.type === 'apiMessage' && message.message === '' && loading() && index() === messages().length - 1 && <LoadingBubble />}
                   </>
                 );
@@ -1532,6 +1532,25 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
               <For each={[...previews()]}>{(item) => <>{previewDisplay(item)}</>}</For>
             </div>
           </Show>
+          <For each={[...messages()]}>
+            {(message, index) => {
+              return (
+                <Show when={message.type === 'userMessage' && loading() && index() === messages().length - 1}>
+                  <div class="w-full px-4 pt-4 pb-1 text-black-500 text-sm">
+                    <p>
+                      <i>{props.title} is chatting</i>
+                      <span class="typing">
+                        <span class="typing__dot">.</span>
+                        <span class="typing__dot">.</span>
+                        <span class="typing__dot">.</span>
+                      </span>
+                    </p>
+                  </div>
+                </Show>
+              );
+            }}
+          </For>
+
           <div class="w-full px-5 pt-2 pb-1 flex">
             {isRecording() ? (
               <>

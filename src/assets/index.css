@@ -123,6 +123,36 @@ pre {
   }
 }
 
+.typing__dot {
+  opacity: 0;
+  animation: loadingFade 1s infinite;
+  font-size: 20px;
+}
+
+.typing__dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.typing__dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing__dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes loadingFade {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 button,
 input,
 textarea {

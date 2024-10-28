@@ -330,96 +330,105 @@ export const BotBubble = (props: Props) => {
   return (
     <div>
       <div class="flex flex-row justify-start mb-2 items-start host-container mt-2" style={{ 'margin-right': '50px' }}>
-        <Show when={props.showAvatar}>
-          <Avatar initialAvatarSrc={props.avatarSrc} />
-        </Show>
-        <div class="flex flex-col justify-start">
-          {props.showAgentMessages && props.message.agentReasoning && (
-            <details ref={botDetailsEl} class="mb-2 px-4 py-2 ml-2 chatbot-host-bubble rounded-[6px]">
-              <summary class="cursor-pointer">
-                <span class="italic">Agent Messages</span>
-              </summary>
-              <br />
-              <For each={props.message.agentReasoning}>
-                {(agent) => {
-                  const agentMessages = agent.messages ?? [];
-                  let msgContent = agent.instructions || (agentMessages.length > 1 ? agentMessages.join('\\n') : agentMessages[0]);
-                  if (agentMessages.length === 0 && !agent.instructions) msgContent = `<p>Finished</p>`;
-                  return (
-                    <AgentReasoningBubble
-                      agentName={agent.agentName ?? ''}
-                      agentMessage={msgContent}
-                      agentArtifacts={agent.artifacts}
-                      backgroundColor={props.backgroundColor}
-                      textColor={props.textColor}
-                      fontSize={props.fontSize}
-                      apiHost={props.apiHost}
-                      chatflowid={props.chatflowid}
-                      chatId={props.chatId}
-                      renderHTML={props.renderHTML}
-                    />
-                  );
+        <div
+          class="flex p-2"
+          style={{
+            'background-color': props.backgroundColor ?? defaultBackgroundColor,
+            color: props.textColor ?? defaultTextColor,
+            'border-radius': '6px',
+            'font-size': props.fontSize ? `${props.fontSize}px` : `${defaultFontSize}px`,
+          }}
+        >
+          <Show when={props.showAvatar}>
+            <Avatar initialAvatarSrc={props.avatarSrc} />
+          </Show>
+          <div class="flex flex-col justify-start">
+            {props.showAgentMessages && props.message.agentReasoning && (
+              <details style={{ 'background-color': 'transparent' }} ref={botDetailsEl} class="mb-2 px-4 py-2 ml-2 chatbot-host-bubble rounded-[6px]">
+                <summary class="cursor-pointer">
+                  <span class="italic">Agent Messages</span>
+                </summary>
+                <br />
+                <For each={props.message.agentReasoning}>
+                  {(agent) => {
+                    const agentMessages = agent.messages ?? [];
+                    let msgContent = agent.instructions || (agentMessages.length > 1 ? agentMessages.join('\\n') : agentMessages[0]);
+                    if (agentMessages.length === 0 && !agent.instructions) msgContent = `<p>Finished</p>`;
+                    return (
+                      <AgentReasoningBubble
+                        agentName={agent.agentName ?? ''}
+                        agentMessage={msgContent}
+                        agentArtifacts={agent.artifacts}
+                        backgroundColor={props.backgroundColor}
+                        textColor={props.textColor}
+                        fontSize={props.fontSize}
+                        apiHost={props.apiHost}
+                        chatflowid={props.chatflowid}
+                        chatId={props.chatId}
+                        renderHTML={props.renderHTML}
+                      />
+                    );
+                  }}
+                </For>
+              </details>
+            )}
+            {props.message.artifacts && props.message.artifacts.length > 0 && (
+              <div class="flex flex-row items-start flex-wrap w-full gap-2">
+                <For each={props.message.artifacts}>
+                  {(item) => {
+                    return item !== null ? <>{renderArtifacts(item)}</> : null;
+                  }}
+                </For>
+              </div>
+            )}
+            {props.message.message && (
+              <span
+                ref={botMessageEl}
+                class="px-4 py-2 ml-2 max-w-full chatbot-host-bubble prose"
+                data-testid="host-bubble"
+                style={{
+                  'background-color': 'transparent',
+                  'border-radius': '6px',
+                  'font-size': props.fontSize ? `${props.fontSize}px` : `${defaultFontSize}px`,
                 }}
-              </For>
-            </details>
-          )}
-          {props.message.artifacts && props.message.artifacts.length > 0 && (
-            <div class="flex flex-row items-start flex-wrap w-full gap-2">
-              <For each={props.message.artifacts}>
-                {(item) => {
-                  return item !== null ? <>{renderArtifacts(item)}</> : null;
-                }}
-              </For>
-            </div>
-          )}
-          {props.message.message && (
-            <span
-              ref={botMessageEl}
-              class="px-4 py-2 ml-2 max-w-full chatbot-host-bubble prose"
-              data-testid="host-bubble"
-              style={{
-                'background-color': props.backgroundColor ?? defaultBackgroundColor,
-                color: props.textColor ?? defaultTextColor,
-                'border-radius': '6px',
-                'font-size': props.fontSize ? `${props.fontSize}px` : `${defaultFontSize}px`,
-              }}
-            />
-          )}
-          {props.message.action && (
-            <div class="px-4 py-2 flex flex-row justify-start space-x-2">
-              <For each={props.message.action.elements || []}>
-                {(action) => {
-                  return (
-                    <>
-                      {action.type === 'approve-button' ? (
-                        <button
-                          type="button"
-                          class="px-4 py-2 font-medium text-green-600 border border-green-600 rounded-full hover:bg-green-600 hover:text-white transition-colors duration-300 flex items-center space-x-2"
-                          onClick={() => props.handleActionClick(action.label, props.message.action)}
-                        >
-                          <TickIcon />
-                          &nbsp;
-                          {action.label}
-                        </button>
-                      ) : action.type === 'reject-button' ? (
-                        <button
-                          type="button"
-                          class="px-4 py-2 font-medium text-red-600 border border-red-600 rounded-full hover:bg-red-600 hover:text-white transition-colors duration-300 flex items-center space-x-2"
-                          onClick={() => props.handleActionClick(action.label, props.message.action)}
-                        >
-                          <XIcon isCurrentColor={true} />
-                          &nbsp;
-                          {action.label}
-                        </button>
-                      ) : (
-                        <button>{action.label}</button>
-                      )}
-                    </>
-                  );
-                }}
-              </For>
-            </div>
-          )}
+              />
+            )}
+            {props.message.action && (
+              <div class="px-4 py-2 flex flex-row justify-start space-x-2">
+                <For each={props.message.action.elements || []}>
+                  {(action) => {
+                    return (
+                      <>
+                        {action.type === 'approve-button' ? (
+                          <button
+                            type="button"
+                            class="px-4 py-2 font-medium text-green-600 border border-green-600 rounded-full hover:bg-green-600 hover:text-white transition-colors duration-300 flex items-center space-x-2"
+                            onClick={() => props.handleActionClick(action.label, props.message.action)}
+                          >
+                            <TickIcon />
+                            &nbsp;
+                            {action.label}
+                          </button>
+                        ) : action.type === 'reject-button' ? (
+                          <button
+                            type="button"
+                            class="px-4 py-2 font-medium text-red-600 border border-red-600 rounded-full hover:bg-red-600 hover:text-white transition-colors duration-300 flex items-center space-x-2"
+                            onClick={() => props.handleActionClick(action.label, props.message.action)}
+                          >
+                            <XIcon isCurrentColor={true} />
+                            &nbsp;
+                            {action.label}
+                          </button>
+                        ) : (
+                          <button>{action.label}</button>
+                        )}
+                      </>
+                    );
+                  }}
+                </For>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <div>
