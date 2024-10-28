@@ -461,7 +461,7 @@ button {
   cursor: default !important;
 }
 
-div.chatbot-input.border:focus {
+div.chatbot-input.border {
   border-color: #f59e0b !important;
 }
 
